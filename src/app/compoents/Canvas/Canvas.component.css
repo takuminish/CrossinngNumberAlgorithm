@@ -1,0 +1,13 @@
+.canvas {
+    text-align: center;
+    padding: 20px;
+  }
+  .canvas canvas {
+    border: 1px #000 solid;
+    width: 600px;
+    height: 600px;
+  }
+
+  .mode-select-button {
+    text-align: center;
+  }

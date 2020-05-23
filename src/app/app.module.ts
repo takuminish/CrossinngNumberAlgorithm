@@ -4,13 +4,13 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopPageComponent } from './compoents/TopPage/TopPage.component';
-import { CannvasComponent } from './compoents/Cannvas/Cannvas.component';
+import { CanvasComponent } from './compoents/Canvas/Canvas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopPageComponent,
-    CannvasComponent
+    CanvasComponent
   ],
   imports: [
     BrowserModule,
