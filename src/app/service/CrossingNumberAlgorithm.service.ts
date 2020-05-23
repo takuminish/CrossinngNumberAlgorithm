@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class CrossingNumberAlgorithmService {
 
-  public LINES:{x: number, y:number}[] = [
+  /** 範囲判定を行う図形(図形を構成する点の座標を配列として表す) */
+  public LINES:{x: number, y: number}[] = [
     {
       x: 100,
       y: 100,
@@ -71,21 +72,31 @@ export class CrossingNumberAlgorithmService {
   constructor() { }
 
 
-  checkWithInPoint(pointX:number, pointY:number): boolean {
+  /**
+   * 引数として渡された点が範囲内であるか判定する
+   * @param pointX 
+   * @param pointY 
+   * @return true: 範囲内, false: 範囲外
+   */
+  checkWithInPoint(pointX: number, pointY: number): boolean {
     let withIncount: number = 0;
 
     for (let i = 0; i < this.LINES.length - 1; i++) {
-      // 上向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、終点は含まない。(ルール1)
-      if( ((this.LINES[i].y <= pointY) && (this.LINES[i+1].y > pointY))
-      // 下向きの辺。点Pがy軸方向について、始点と終点の間にある。ただし、始点は含まない。(ルール2)
-          || ((this.LINES[i].y > pointY) && (this.LINES[i+1].y <= pointY))) {
-            let dx = (pointY - this.LINES[i]. y) * (this.LINES[i+1].x - this.LINES[i].x) / (this.LINES[i+1].y - this.LINES[i].y) + this.LINES[i].x; 
+      // 点のY座標が辺の始点と終点の間に存在するか(上向きの辺の場合)
+      if( ((this.LINES[i].y <= pointY) && (this.LINES[i + 1].y > pointY))
+      /// 点のY座標が辺の始点と終点の間に存在するか(下向きの辺の場合)
+          || ((this.LINES[i].y > pointY) && (this.LINES[i + 1].y <= pointY))) {
+
+            // 直線の方程式より、点の水平線(右側のみ)と辺の交点のX座標を求める
+            let dx = (pointY - this.LINES[i]. y) * (this.LINES[i + 1].x - this.LINES[i].x) / (this.LINES[i + 1].y - this.LINES[i].y) + this.LINES[i].x; 
+
             if (pointX < dx) {
               withIncount++;
             }
           }
     }
 
-    return withIncount%2 !== 0? true : false; 
+    // 奇数: 範囲内, 偶数: 範囲外
+    return withIncount % 2 !== 0 ? true : false; 
   }
 }
